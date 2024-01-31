@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Searcher.Views.JsonViewer.JsonView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Searcher.Views.JsonViewer"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=local:JsonViewModel, IsDesignTimeCreatable=False}"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type local:FilterViewModel}">
+            <local:FilterView/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <ListBox  Grid.Row="0"  ItemsSource="{Binding Filters}"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Disabled">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Setter Property="Focusable" Value="False"></Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel IsItemsHost="True" HorizontalAlignment="Left" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <ContentControl Content="{Binding}" Width="500"/>   
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <!-- <ListView Grid.Row="0" ItemsSource="{Binding Filters}"> -->
+        <!--     <ListView.ItemTemplate> -->
+        <!--         <DataTemplate> -->
+        <!--             <UniformGrid Columns="2" HorizontalAlignment="Stretch"> -->
+        <!--                  -->
+        <!--             </UniformGrid> -->
+        <!--         </DataTemplate> -->
+        <!--     </ListView.ItemTemplate> -->
+        <!-- </ListView> -->
+        <ListView  Grid.Row="1" ItemsSource="{Binding Data.RootItems}" SelectedItem="{Binding Data.SelectedItem}" IsSynchronizedWithCurrentItem="True">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Value}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</UserControl>
